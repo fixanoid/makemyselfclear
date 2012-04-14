@@ -1,6 +1,6 @@
 
 
-<dictionary version="0.2">
+<dictionary version="0.3">
 	<entry>
 		<word>ku klux klan</word>
 		<category>hate group</category>
@@ -289,112 +289,112 @@
 	<entry>
 		<word>chink</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>coon</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>dyke</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>2</threatlevel>
 	</entry>
 	<entry>
 		<word>fag</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>2</threatlevel>
 	</entry>
 	<entry>
 		<word>faggitt</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>faggot</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>faggs</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>fagot</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>fagots</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>fags</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>2</threatlevel>
 	</entry>
 	<entry>
 		<word>n1gga</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>n1gger</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>nigg3r</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>nigg4h</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>nigga</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>niggah</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>niggas</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>niggaz</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>nigger</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>niggers</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>towelhead</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>towel head</word>
 		<category>hate speech</category>
-		<threatlevel>1</threatlevel>
+		<threatlevel>3</threatlevel>
 	</entry>
 	<entry>
 		<word>lsd</word>
@@ -534,27 +534,27 @@
 	<entry>
 		<word>uppers</word>
 		<category>drugs and alcohol</category>
-		<threatlevel>2</threatlevel>
+		<threatlevel>1</threatlevel>
 	</entry>
 	<entry>
 		<word>downers</word>
 		<category>drugs and alcohol</category>
-		<threatlevel>2</threatlevel>
+		<threatlevel>1</threatlevel>
 	</entry>
 	<entry>
 		<word>drunk</word>
 		<category>drugs and alcohol</category>
-		<threatlevel>2</threatlevel>
+		<threatlevel>1</threatlevel>
 	</entry>
 	<entry>
 		<word>wasted</word>
 		<category>drugs and alcohol</category>
-		<threatlevel>2</threatlevel>
+		<threatlevel>1</threatlevel>
 	</entry>
 	<entry>
 		<word>smashed</word>
 		<category>drugs and alcohol</category>
-		<threatlevel>2</threatlevel>
+		<threatlevel>1</threatlevel>
 	</entry>
 	<entry>
 		<word>ate some pills</word>
