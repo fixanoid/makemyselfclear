@@ -25,6 +25,8 @@ var mmc = {
 					mmc.hits[cat].push(value);
 				}
 			}
+			
+			mmc.openPage(3);
 		});
 
 		var overallThreat = 0, total = 0, superOffensive = 0, embarassing = 0, uncivil = 0;
@@ -111,6 +113,10 @@ var mmc = {
 	initFacebook: function() {
 		if (window.location.hash.length == 0) { return; }
 
+		mmc.openPage('extra');
+		$('#page-extra').css({'text-align':'center'});
+		$('#page-extra').html('<br><br>Loading your Facebook posts.<br><br><img src="img/257.png">');
+
 		var accessToken = window.location.hash.substring(1);
 		var path = "https://graph.facebook.com/me?";
 		var queryParams = [accessToken, 'callback=mmc.nada'];
@@ -166,8 +172,6 @@ var mmc = {
 				});
 			}, 2000);
 		}
-
-		mmc.openPage(3);
 	},
 
 	init: function() {
