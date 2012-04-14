@@ -18,6 +18,7 @@ var mmc = {
 
 						if (reg.test(value.content)) {
 							value.threat = mmc.dictionary[cat][entry]['threat'];
+							console.log('Matched: ' + value.content + ' in category ' + cat + ' on ' + mmc.dictionary[cat][entry]['word']);
 						}
 					}
 					
@@ -163,7 +164,7 @@ User result level is determined by average threat level (the sum of the threat l
 						}
 					});
 
-					console.log(["Users posts", data]);
+					console.log("Users posts retrieved, running matching");
 					mmc.runDataMatch(data);
 				});
 			}, 2000);
