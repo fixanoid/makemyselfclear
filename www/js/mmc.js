@@ -14,7 +14,9 @@ var mmc = {
 					}
 
 					for (var entry in mmc.dictionary[cat]) {
-						var reg = new RegExp(mmc.dictionary[cat][entry]['word'], 'ig');
+						if (!mmc.dictionary[cat][entry]['word']) continue;
+
+						var reg = new RegExp(' ' + mmc.dictionary[cat][entry]['word'] + ' ', 'ig');
 
 						if (reg.test(value.content)) {
 							value.threat = mmc.dictionary[cat][entry]['threat'];
