@@ -58,7 +58,7 @@ var mmc = {
 			}
 		}
 
-		var resultLevel = overallThreat/total;
+		var resultLevel = overallThreat/total || 0;
 
 		if (resultLevel >= 2.5) {
 			// level 3
@@ -71,14 +71,11 @@ var mmc = {
 			$('#results-picture').html('Your virtual tongue is under control.<br><img src="img/neutral-concentrated-red-tongue.png"><br>We only found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
 		} else {
 			// level 0
-			$('#results-picture').html('Wow, we didn\'t find a single thing that could get you into trouble. You\'re cautious and civil with what you say, which makes us wonder if you realize you\'re on the internet.');
+			$('#results-picture').html('You\'re in the clear!<br><img src="img/happy-epic-win.png"><br>Wow, we didn\'t find a single thing that could get you into trouble. You\'re cautious and civil with what you say, which makes us wonder if you realize you\'re on the internet.');
 			
 			$('#results-accordion').html('Not that you need them, but you might want to check out our <link>additional privacy resources</link> for best practices, info about social network privacy policies, and other tools you might find interesting.');
 		}
-		console.log([total, overallThreat, overallThreat/total]);
-/*
-User result level is determined by average threat level (the sum of the threat level property of found matches divided by the total number of found matches).
-*/
+		console.log([total, overallThreat, overallThreat/total || 0]);
 	},
 
 	addObservers: function() {
@@ -152,7 +149,7 @@ User result level is determined by average threat level (the sum of the threat l
 		setTimeout(function() {
 				FB.api({
 					method:'fql.query',
-					query:"SELECT post_id, actor_id, target_id, message FROM stream WHERE filter_key in (SELECT filter_key FROM stream_filter WHERE uid=me() AND type='newsfeed') AND is_hidden = 0 AND created_time > 1"
+					query: "SELECT post_id, actor_id, target_id, message FROM stream WHERE filter_key in (SELECT filter_key FROM stream_filter WHERE uid = me()) AND created_time > 1"
 				}, function (response) {
 					var data = [];
 					$(response).each(function() {
@@ -164,7 +161,7 @@ User result level is determined by average threat level (the sum of the threat l
 						}
 					});
 
-					console.log("Users posts retrieved, running matching");
+					console.log("Users posts retrieved, running matching. " + data.length);
 					mmc.runDataMatch(data);
 				});
 			}, 2000);
@@ -195,7 +192,7 @@ User result level is determined by average threat level (the sum of the threat l
 					
 					mmc.dictionary[cat].push({"word": $(this).find('word').text(), "threat": $(this).find('threatlevel').text()});
 
-					mmc.dictionary[cat].regex += $(this).find('word').text() + '|';
+					mmc.dictionary[cat].regex += ' ' + $(this).find('word').text() + ' |';
 				});
 
 				for (var cat in mmc.dictionary) {
