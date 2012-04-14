@@ -1,15 +1,83 @@
 var mmc = {
 	facebookAppID: '378127265561580',
 	dictionary: {},
+	hits: {},
 	
 	runDataMatch: function(data) {
 		$(data).each(function(index, value) {
 			for (var cat in mmc.dictionary) {
 				if (mmc.dictionary[cat].regex.test(value.content)) {
-					console.log('Matched: ' + value.content + ' in category ' + cat );
+					//console.log('Matched: ' + value.content + ' in category ' + cat );
+
+					if (!mmc.hits[cat]) {
+						mmc.hits[cat] = [];
+					}
+
+					for (var entry in mmc.dictionary[cat]) {
+						var reg = new RegExp(mmc.dictionary[cat][entry]['word'], 'ig');
+
+						if (reg.test(value.content)) {
+							value.threat = mmc.dictionary[cat][entry]['threat'];
+						}
+					}
+					
+					mmc.hits[cat].push(value);
 				}
 			}
 		});
+
+		var overallThreat = 0, total = 0, superOffensive = 0, embarassing = 0, uncivil = 0;
+		for (var cat in mmc.hits) {
+			for (var i = 0; i < mmc.hits[cat].length; i++ ) {
+				overallThreat += parseInt(mmc.hits[cat][i]['threat']);
+				total++;
+				
+				if ( parseInt(mmc.hits[cat][i]['threat']) == 3 ) {
+					superOffensive++;
+				} else if ( parseInt(mmc.hits[cat][i]['threat']) == 2 ) {
+					embarassing++;
+				} else if ( parseInt(mmc.hits[cat][i]['threat']) == 1 ) {
+					uncivil++;
+				}
+			/*
+				if (cat == 'foul language') {
+					overallThreat += 1;
+				} else if (cat == 'hate group') {
+					overallThreat += 2;
+				} else if (cat == 'hate speech') {
+					overallThreat += 3;
+				} else if (cat == 'health information') {
+					overallThreat += 2;
+				} else if (cat == 'sex') {
+					overallThreat += 1;
+				} else if (cat == 'drugs and alcohol') {
+					overallThreat += 1;
+				}
+			*/
+			}
+		}
+
+		var resultLevel = overallThreat/total;
+
+		if (resultLevel >= 2.5) {
+			// level 3
+			$('#results-picture').html('Virtual mouth, meet virtual soap.<br><img src="img/rage-classic.png"><br>We found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
+		} else if ( (resultLevel >= 1.5) && (resultLevel < 2.5) ) {
+			// level 2
+			$('#results-picture').html('Things look pretty murky...<br><img src="img/determined-questioning-pondering.png"><br>We found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
+		} else if ( (resultLevel > 0) && (resultLevel < 1.5) ) {
+			// level 1
+			$('#results-picture').html('Your virtual tongue is under control.<br><img src="img/neutral-concentrated-red-tongue.png"><br>We only found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
+		} else {
+			// level 0
+			$('#results-picture').html('Wow, we didn\'t find a single thing that could get you into trouble. You\'re cautious and civil with what you say, which makes us wonder if you realize you\'re on the internet.');
+			
+			$('#results-accordion').html('Not that you need them, but you might want to check out our <link>additional privacy resources</link> for best practices, info about social network privacy policies, and other tools you might find interesting.');
+		}
+		console.log([total, overallThreat, overallThreat/total]);
+/*
+User result level is determined by average threat level (the sum of the threat level property of found matches divided by the total number of found matches).
+*/
 	},
 
 	addObservers: function() {
@@ -83,7 +151,7 @@ var mmc = {
 		setTimeout(function() {
 				FB.api({
 					method:'fql.query',
-					query:"SELECT post_id, actor_id, target_id, message FROM stream WHERE filter_key in (SELECT filter_key FROM stream_filter WHERE uid=me() AND type='newsfeed') AND is_hidden = 0"
+					query:"SELECT post_id, actor_id, target_id, message FROM stream WHERE filter_key in (SELECT filter_key FROM stream_filter WHERE uid=me() AND type='newsfeed') AND is_hidden = 0 AND created_time > 1"
 				}, function (response) {
 					var data = [];
 					$(response).each(function() {
