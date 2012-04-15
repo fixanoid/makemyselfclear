@@ -10,29 +10,33 @@ body {
 	font-size:14px;
 }
 a {
-	color:#ffc002;
+	color:#862ea6;
 	text-decoration:none;
 	cursor:pointer;
 }
 /* HEADER 
 *********/
 
-/* crazy header background */
+/* crazy header background 
 #header {
-	background: rgb(204,204,204); /* Old browsers */
-	background: -moz-linear-gradient(top,  rgba(204,204,204,1) 0%, rgba(244,244,244,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(204,204,204,1)), color-stop(100%,rgba(244,244,244,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(204,204,204,1) 0%,rgba(244,244,244,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(204,204,204,1) 0%,rgba(244,244,244,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(204,204,204,1) 0%,rgba(244,244,244,1) 100%); /* IE10+ */
-	background: linear-gradient(top,  rgba(204,204,204,1) 0%,rgba(244,244,244,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#f4f4f4',GradientType=0 ); /* IE6-9 */
-}	
+	background: rgb(204,204,204);
+	background: -moz-linear-gradient(top,  rgba(204,204,204,1) 0%, rgba(244,244,244,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(204,204,204,1)), color-stop(100%,rgba(244,244,244,1)));
+	background: -webkit-linear-gradient(top,  rgba(204,204,204,1) 0%,rgba(244,244,244,1) 100%);
+	background: -o-linear-gradient(top,  rgba(204,204,204,1) 0%,rgba(244,244,244,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(204,204,204,1) 0%,rgba(244,244,244,1) 100%); 
+	background: linear-gradient(top,  rgba(204,204,204,1) 0%,rgba(244,244,244,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#f4f4f4',GradientType=0 );
+}
+*/
+	
 #header {
-	height:115px;
+	background: url("../img/bg-wall.png");
+	height:110px;
 	position:fixed;
 	width:100%;
 	z-index:9000;
+	border-bottom: 4px solid #666;
 }
 
 #logo {
@@ -44,7 +48,9 @@ a {
 #logo a {
 	font-family: Anton, sans-serif;
 	font-size: 48px;
-	color: #000000;
+	color: #FFF;
+    left: 40px;
+    position: relative;
 }
 
 #footer {
@@ -84,24 +90,29 @@ a {
     float: left;
     position: relative;
     width: 45%;
-	margin-top: 10px;
+	margin-top: 30px;
 }
 
 #start {
     float: right;
-    margin-top: 10%;
-	padding-left: 20px;
+    height: 457px;
+    padding-left: 20px;
     position: relative;
+    top: -1px;
     width: 50%;
 }
 
 #go {
-	cursor: pointer;
-	font-family: Anton, sans-serif;
+    border: 3px solid black;
     color: white;
+    cursor: pointer;
+    font-family: Anton,sans-serif;
     font-size: 30pt;
     height: 75px;
-    width: 80%;
+    left: 153px;
+    position: relative;
+    top: 350px;
+    width: 60%;
 	background: #b4e391; /* Old browsers */
 	background: -moz-linear-gradient(top,  #b4e391 0%, #61c419 75%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b4e391), color-stop(75%,#61c419)); /* Chrome,Safari4+ */
@@ -112,14 +123,31 @@ a {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4e391', endColorstr='#61c419',GradientType=0 ); /* IE6-9 */
 }
 
+.first {
+    background: url("../img/quiet.png") no-repeat scroll 100% -100px transparent;
+ }
+
 .clear {
-	color: black;
-	-webkit-text-fill-color: white; /* Will override color (regardless of order) */
-	-webkit-text-stroke-width: 2px;
-	-webkit-text-stroke-color: black;
+	color: #ffffff;
+	opacity: 0.4;
+    text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
 }
-	
+
+.title {
+	font-family: Anton, sans-serif;
+	font-size: 20px;
+	line-height: 210%;
+}	
+
+.alt {
+	color: #862ea6;
+}
+
 .res_title {
 	font-family: Anton, sans-serif;
-	font-size: 15px;
+	font-size: 24px;
 }
