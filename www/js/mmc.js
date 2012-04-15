@@ -20,7 +20,7 @@ var mmc = {
 
 						if (reg.test(value.content)) {
 							value.threat = mmc.dictionary[cat][entry]['threat'];
-							console.log('Matched: ' + value.content + ' in category ' + cat + ' on ' + mmc.dictionary[cat][entry]['word']);
+							// console.log('Matched: ' + value.content + ' in category ' + cat + ' on ' + mmc.dictionary[cat][entry]['word']);
 						}
 					}
 					
@@ -79,7 +79,7 @@ var mmc = {
 			
 			$('#results-accordion').html('Not that you need them, but you might want to check out our <link>additional privacy resources</link> for best practices, info about social network privacy policies, and other tools you might find interesting.');
 		}
-		console.log([total, overallThreat, overallThreat/total || 0]);
+		// console.log([total, overallThreat, overallThreat/total || 0]);
 	},
 
 	addObservers: function() {
@@ -106,12 +106,52 @@ var mmc = {
 			mmc.openPage('extra');
 			$('#page-extra').load('privacy.html');
 		});
+
+		$('#twitter-go').click(function() {
+			mmc.initTwitter();
+		});
 	},
 
 	nada: function(e) {
 	
 	},
 
+	initTwitter: function() {
+		if (!$('#twitter-handle').val()) {
+			alert('Enter twitter handle please');
+			return;
+		}
+
+		mmc.openPage('extra');
+		$('#page-extra').css({'text-align':'center'});
+		$('#page-extra').html('<br><br>Loading your Twitter twits.<br><br><img src="img/257.png">');
+		var data = [], pages = 0;
+
+		function loadTwits(page) {
+			$.getJSON('http://api.twitter.com/1/statuses/user_timeline.json?screen_name=' + $('#twitter-handle').val() + '&count=200&page=' + page + '&callback=?',
+			function(twits) {
+				$(twits).each(function() {
+					var entry = $(this)[0];
+
+					entry.content = entry.text;
+					data.push(entry);
+				});
+
+				// console.log("Users twits retrieved, running matching. " + data.length + ' from page ' + page);
+
+				pages++;
+				
+				if (pages == 5) {
+					mmc.runDataMatch(data);
+				}
+			});
+		}
+		
+		for (var i = 1; i <= 5; i++) {
+			loadTwits(i);
+		}
+	},
+	
 	initFacebook: function() {
 		if (window.location.hash.length == 0) { return; }
 
@@ -163,13 +203,12 @@ var mmc = {
 					$(response).each(function() {
 						var entry = $(this)[0];
 						if (entry.message) {
-							
 							entry.content = entry.message;
 							data.push(entry);
 						}
 					});
 
-					console.log("Users posts retrieved, running matching. " + data.length);
+					// console.log("Users posts retrieved, running matching. " + data.length);
 					mmc.runDataMatch(data);
 				});
 			}, 2000);
