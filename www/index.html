@@ -6,7 +6,7 @@
 <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
 <link href='http://fonts.googleapis.com/css?family=Anton|Open+Sans:400,400italic,700' rel='stylesheet' type='text/css'></link>
 <link rel="stylesheet" type="text/css" media="all" href="css/mmc.css" />
-
+<link rel="stylesheet" href="css/jqx.base.css" type="text/css"/>
 </head>
 
 <body>
@@ -38,12 +38,14 @@ Use the login buttons to the right to sign in to your social networks. We'll sca
 <br><br>
 The services are going to ask for all sorts of permissions in order to let us do this, but remember: we don't share anything on your behalf, and we don't keep anything we find after we show it to you.
 		</div>
-		<div style="text-align:center;margin-top:3%" id="start"><div class="fb-login-button"><a href="#" id="facebook-auth"><img src="img/facebook.png"></a></div><hr><img src="img/twitter.png" height="18" style="padding-right: 5px;vertical-align: text-top;"> <input type="text" id="twitter-handle"><button id="twitter-go" style="margin-left: 5px;">go</button></div>
+		<div style="text-align:center;margin-top:3%" id="start"><div class="fb-login-button"><a href="#" id="facebook-auth"><img src="img/facebook.png"></a></div><hr><img src="img/twitter.png" height="18" style="padding-right: 5px;vertical-align: text-top;"> <input type="text" value="fixanoid" id="twitter-handle"><button id="twitter-go" style="margin-left: 5px;">go</button></div>
 	</div>
 
 	<div id="page-3" class="page">
 		<div id="intro"><div id="results-picture"></div></div>
-		<div id="start"><div id="results-accordion"></div></div>
+        <div id="start">
+            <div id="results-accordion" style='overflow: hidden;'></div>
+        </div>
 	</div>
 
 	<div id="page-extra" class="page">
@@ -51,11 +53,13 @@ The services are going to ask for all sorts of permissions in order to let us do
 </div>
 
 <div id="footer">
-	<div id="footer-text">Make Myself Clear &copy; 2012 <a href="privacy.html" id="policy">privacy policy</a></div>
+	<div id="footer-text">Make Me Clear &copy; 2012 <a href="privacy.html" id="policy">privacy policy</a></div>
 </div>
 
 <script src="js/jquery-1.7.2.min.js"></script>
 <script src="js/mmc.js"></script>
-
+<script type="text/javascript" src="js/jqxcore.js"></script>
+<script type="text/javascript" src="js/jqxexpander.js"></script>
+<script type="text/javascript" src="js/jqxnavigationbar.js"></script>
 </body>
 </html>

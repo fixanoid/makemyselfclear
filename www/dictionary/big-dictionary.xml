@@ -1,6 +1,6 @@
 
 
-<dictionary version="0.3">
+<dictionary version="0.4">
 	<entry>
 		<word>ku klux klan</word>
 		<category>hate group</category>
@@ -1877,22 +1877,7 @@
 		<threatlevel>1</threatlevel>
 	</entry>
 	<entry>
-		<word>sh!+</word>
-		<category>foul language</category>
-		<threatlevel>1</threatlevel>
-	</entry>
-	<entry>
-		<word>sh!t</word>
-		<category>foul language</category>
-		<threatlevel>1</threatlevel>
-	</entry>
-	<entry>
 		<word>sh1t</word>
-		<category>foul language</category>
-		<threatlevel>1</threatlevel>
-	</entry>
-	<entry>
-		<word>shi+</word>
 		<category>foul language</category>
 		<threatlevel>1</threatlevel>
 	</entry>
