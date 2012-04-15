@@ -6,12 +6,12 @@ var mmc = {
 	runDataMatch: function(data) {
 		$(data).each(function(index, value) {
 			for (var cat in mmc.dictionary) {
+				if (!mmc.hits[cat]) {
+					mmc.hits[cat] = [];
+				}
+
 				if (mmc.dictionary[cat].regex.test(value.content)) {
 					//console.log('Matched: ' + value.content + ' in category ' + cat );
-
-					if (!mmc.hits[cat]) {
-						mmc.hits[cat] = [];
-					}
 
 					for (var entry in mmc.dictionary[cat]) {
 						if (!mmc.dictionary[cat][entry]['word']) continue;
@@ -31,8 +31,10 @@ var mmc = {
 			mmc.openPage(3);
 		});
 
-		var overallThreat = 0, total = 0, superOffensive = 0, embarassing = 0, uncivil = 0;
+		var overallThreat = 0, total = 0, superOffensive = 0, embarassing = 0, uncivil = 0,
+		 resultsAccordion = $("#results-accordion"), expandedIndex = 0;
 		for (var cat in mmc.hits) {
+			var content = $("<div><ul></ul></div>"), length = mmc.hits[cat].length;
 			for (var i = 0; i < mmc.hits[cat].length; i++ ) {
 				overallThreat += parseInt(mmc.hits[cat][i]['threat']);
 				total++;
@@ -60,8 +62,18 @@ var mmc = {
 				}
 			*/
 			}
+			if (!length) {
+                resultsAccordion.append("<div style='background-color:#00CD00'>We couldn't find any " + cat + ". In the clear!</div>");
+                content.html("<li>0</li>");
+            } else {
+                expandedIndex++;
+                resultsAccordion.append("<div style='background-color:#FF0000'>We found [" + length + "] references to " + cat.toUpperCase() + " ></div>");
+            }
+
+            resultsAccordion.append(content);
 		}
 
+		resultsAccordion.jqxNavigationBar({ width:400, height:320, sizeMode:'fitAvailableHeight', expandedIndex:expandedIndex});
 		var resultLevel = overallThreat/total || 0;
 
 		if (resultLevel >= 2.5) {
@@ -106,12 +118,51 @@ var mmc = {
 			mmc.openPage('extra');
 			$('#page-extra').load('privacy.html');
 		});
+
+		$('#twitter-go').click(function() {
+			mmc.initTwitter();
+		});
 	},
 
 	nada: function(e) {
 	
 	},
 
+	initTwitter: function() {
+		if (!$('#twitter-handle').val()) {
+			alert('Enter twitter handle please');
+			return;
+		}
+
+		mmc.openPage('extra');
+		$('#page-extra').css({'text-align':'center'});
+		$('#page-extra').html('<br><br>Loading your Twitter twits.<br><br><img src="img/257.png">');
+		var data = [], pages = 0;
+
+		function loadTwits(page) {
+			$.getJSON('http://api.twitter.com/1/statuses/user_timeline.json?screen_name=' + $('#twitter-handle').val() + '&count=200&page=' + page + '&callback=?',
+			function(twits) {
+				$(twits).each(function() {
+					var entry = $(this)[0];
+
+					entry.content = entry.text;
+					data.push(entry);
+				});
+
+				// console.log("Users twits retrieved, running matching. " + data.length + ' from page ' + page);
+
+				pages++;
+				
+				if (pages == 5) {
+					mmc.runDataMatch(data);
+				}
+			});
+		}
+		
+		for (var i = 1; i <= 5; i++) {
+			loadTwits(i);
+		}
+	},
 	initFacebook: function() {
 		if (window.location.hash.length == 0) { return; }
 
