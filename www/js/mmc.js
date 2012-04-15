@@ -6,14 +6,13 @@ var mmc = {
 	
 	runDataMatch: function(data) {
 		$(data).each(function(index, value) {
-		console.log(value);
 			for (var cat in mmc.dictionary) {
 				if (!mmc.hits[cat]) {
 					mmc.hits[cat] = [];
 				}
 
 				if (mmc.dictionary[cat].regex.test(value.content)) {
-					console.log('Matched: ' + value.content + ' in category ' + cat );
+					// console.log('Matched: ' + value.content + ' in category ' + cat );
 
 					for (var entry in mmc.dictionary[cat]) {
 						if (!mmc.dictionary[cat][entry]['word']) continue;
@@ -34,11 +33,12 @@ var mmc = {
 			mmc.openPage(3);
 		});
 
-		console.log(mmc.hits);
+		// console.log(mmc.hits);
 		
 		var overallThreat = 0, total = 0, superOffensive = 0, embarassing = 0, uncivil = 0,
-		 resultsAccordion = $("#results-accordion"), expandedIndex = 0;
+		 resultsAccordion = $("#results-accordion"), expandedIndex = -2, index = -1;
 		for (var cat in mmc.hits) {
+			index++;
 			var content = $("<div><ul></ul></div>"), length = mmc.hits[cat].length;
 			for (var i = 0; i < mmc.hits[cat].length; i++ ) {
 				overallThreat += parseInt(mmc.hits[cat][i]['threat']);
@@ -52,16 +52,18 @@ var mmc = {
 					uncivil++;
 				}
 
-				content.html("<li>" + mmc.hits[cat][i]['content'] + "</li>");
+				content.append("<li>" + mmc.hits[cat][i]['content'] + "</li>");
 			}
 
 			if (!length) {
                 resultsAccordion.append("<div style='background-color:#00CD00'>We couldn't find any " + cat + ". In the clear!</div>");
-                content.html("<li>0</li>");
+                content.html("<li>All clear here!</li>");
             } else {
-                expandedIndex++;
+				if (expandedIndex == -2) {
+                    expandedIndex = index;
+                }
+
                 resultsAccordion.append("<div style='background-color:#FF0000'>We found [" + length + "] references to " + cat.toUpperCase() + " ></div>");
-				
             }
 
             resultsAccordion.append(content);
@@ -72,18 +74,61 @@ var mmc = {
 
 		if (resultLevel >= 2.5) {
 			// level 3
-			$('#results-picture').html('<span class="res_title">Virtual mouth, meet virtual soap.</span><br><img src="img/rage-classic.png"><br>We found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
+			$('#results-intro').prepend('<span class="res_title">Virtual mouth, meet virtual soap.</span><br/>We found ' + total + ' things that could cause you trouble.<br/>' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
+			$('#results-next').html('<span class="res_title">So What Now?</span><br/>You should check out our <a href="resources.html">privacy resources page</a>, which will suggest some best practices, give you info on how to remove offensive content, and suggest some other tools that can help you control your privacy online. Don\'t wait for somebody else to ask you about the' + total + 'things we found - take action today to make yourself clear.');
+			$('#results-start').addClass("ragethree");
+			$('#results-start').css({
+				'background': 'url("./img/ragethree.png") no-repeat scroll 100% -100px transparent',
+				'float': 'right',
+				'height': '457px',
+				'padding-left': '20px',
+				'position': 'relative',
+				'top': '-1px',
+				'width': '50%'
+			});
 		} else if ( (resultLevel >= 1.5) && (resultLevel < 2.5) ) {
 			// level 2
-			$('#results-picture').html('<span class="res_title">Things look pretty murky...</span><br><img src="img/determined-questioning-pondering.png"><br>We found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
+			$('#results-intro').prepend('<span class="res_title">Things look pretty murky...</span><br/>We found ' + total + ' things that could cause you trouble.<br/>' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
+			$('#results-next').html('<span class="res_title">So What Now?</span><br/>You should check out our <a href="resources.html">privacy resources page</a>, which will suggest some best practices, give you info on how to remove offensive content, and suggest some other tools that can help you control your privacy online. Don\'t wait for somebody else to ask you about the' + total + 'things we found - take action today to make yourself clear.');
+			$('#results-start').addClass("ragetwo");
+			$('#results-start').css({
+				'background': 'url("./img/ragetwo.png") no-repeat scroll 100% -100px transparent',
+				'float': 'right',
+				'height': '457px',
+				'padding-left': '20px',
+				'position': 'relative',
+				'top': '-1px',
+				'width': '50%'
+			});
 		} else if ( (resultLevel > 0) && (resultLevel < 1.5) ) {
 			// level 1
-			$('#results-picture').html('<span class="res_title">Your virtual tongue is under control.</span><br><img src="img/neutral-concentrated-red-tongue.png"><br>We only found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
+			$('#results-intro').prepend('<span class="res_title">Your virtual tongue is under control.</span><br/>We found ' + total + ' things that could cause you trouble.<br/>' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
+			$('#results-next').html('<span class="res_title">So What Now?</span><br/>You should check out our <a href="resources.html">privacy resources page</a>, which will suggest some best practices, give you info on how to remove offensive content, and suggest some other tools that can help you control your privacy online. Don\'t wait for somebody else to ask you about the' + total + 'things we found - take action today to make yourself clear.');
+			$('#results-start').addClass("rageone");
+			$('#results-start').css({
+				'background': 'url("./img/rageone.png") no-repeat scroll 100% -100px transparent',
+				'float': 'right',
+				'height': '457px',
+				'padding-left': '20px',
+				'position': 'relative',
+				'top': '-1px',
+				'width': '50%'
+			});	
 		} else {
 			// level 0
-			$('#results-picture').html('<span class="res_title">You\'re in the clear!</span><br><img src="img/happy-epic-win.png"><br>Wow, we didn\'t find a single thing that could get you into trouble. You\'re cautious and civil with what you say, which makes us wonder if you realize you\'re on the internet.');
-			
-			// $('#results-accordion').html('Not that you need them, but you might want to check out our <link>additional privacy resources</link> for best practices, info about social network privacy policies, and other tools you might find interesting.');
+			$('#results-intro').prepend('<span class="res_title">You\'re in the clear!</span><br>Wow, we didn\'t find a single thing that could get you into trouble.<br/><br/>You\'re cautious and civil with what you say, which makes us wonder if you realize you\'re on the internet.');
+
+			$('#results-accordion').html('Not that you need them, but you might want to check out our <a href="resources.html">additional privacy resources</a> for best practices, info about social network privacy policies, and other tools you might find interesting.');
+			$('#results-start').addClass("ragezero");
+			$('#results-start').css({
+				'background': 'url("./img/ragezero.png") no-repeat scroll 100% -100px transparent',
+				'float': 'right',
+				'height': '457px',
+				'padding-left': '20px',
+				'position': 'relative',
+				'top': '-1px',
+				'width': '50%'
+			});
 		}
 		// console.log([total, overallThreat, overallThreat/total || 0]);
 	},

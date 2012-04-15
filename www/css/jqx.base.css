@@ -2161,7 +2161,7 @@
     border-right: 1px solid #aaaaaa;
     font-size: 13px;
     z-index: 0;
-    overflow: hidden;
+    overflow: auto;
     text-align: left;
     color: #000;
     background-color: #fdfdfd;

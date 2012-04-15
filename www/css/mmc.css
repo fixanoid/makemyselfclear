@@ -11,9 +11,14 @@ body {
 }
 a {
 	color:#862ea6;
-	text-decoration:none;
+	text-decoration: underline;
 	cursor:pointer;
 }
+
+a:hover {
+	text-decoration: none;
+	}
+
 /* HEADER 
 *********/
 
@@ -39,6 +44,30 @@ a {
 	border-bottom: 4px solid #666;
 }
 
+#nav {
+	color:#ffffff;
+	background:#666666;
+	position:absolute;
+	bottom:0px;
+	right:75px;
+	padding-top:10px;
+}
+
+#nav a {
+	font-weight:600;
+	color:#ffffff;
+	background:#666666;
+	padding-left:25px;	
+	padding-right:25px;
+	padding-top:10px;
+	padding-bottom:4px;
+	text-decoration: none;
+}
+
+#nav a:hover {
+	color:#666666;
+	background:#ffffff;
+}
 #logo {
 	float:left;
 	margin-left: 20px;
@@ -51,6 +80,7 @@ a {
 	color: #FFF;
     left: 40px;
     position: relative;
+	text-decoration: none;
 }
 
 #footer {
@@ -93,7 +123,22 @@ a {
 	margin-top: 30px;
 }
 
+#results-intro {
+   position: relative;
+   top: -15px;
+   width: 415px;
+}
+
 #start {
+    float: right;
+    height: 457px;
+    padding-left: 20px;
+    position: relative;
+    top: -1px;
+    width: 50%;
+}
+
+#results_start {
     float: right;
     height: 457px;
     padding-left: 20px;
@@ -123,9 +168,40 @@ a {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4e391', endColorstr='#61c419',GradientType=0 ); /* IE6-9 */
 }
 
+#accordion {
+	margin-top: 5px;
+}
+
+
+#results-next {
+    padding: 5px;
+    position: relative;
+    text-align: right;
+    top: 280px;
+	font-weight: bold;
+}
+
 .first {
     background: url("../img/quiet.png") no-repeat scroll 100% -100px transparent;
  }
+ 
+.rageone  {
+    background: url("../img/rageone.png") no-repeat scroll 100% -100px transparent;
+}
+
+.ragetwo {
+    background: url("../img/ragetwo.png") no-repeat scroll 100% -100px transparent;
+}
+
+.ragethree {
+    background: url("../img/ragethree.png") no-repeat scroll 100% -100px transparent;
+}
+
+.ragezero {
+    background: url("../img/ragezero.png") no-repeat scroll 100% -100px transparent;
+}
+
+
 
 .clear {
 	color: #ffffff;
@@ -148,6 +224,7 @@ a {
 }
 
 .res_title {
-	font-family: Anton, sans-serif;
-	font-size: 24px;
+    font-family: Anton,sans-serif;
+    font-size: 24px;
+    font-weight: normal;
 }
