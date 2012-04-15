@@ -158,12 +158,6 @@ var mmc = {
 			$('#page-extra').load('privacy.html');
 		});
 
-		$('#credits').click(function(e) {
-			e.preventDefault();
-			mmc.openPage('extra');
-			$('#page-extra').load('credits.html');
-		});
-
 		$('#twitter-go').click(function() {
 			mmc.initTwitter();
 		});
