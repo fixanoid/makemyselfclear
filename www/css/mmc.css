@@ -111,3 +111,15 @@ a {
 	background: linear-gradient(top,  #b4e391 0%,#61c419 75%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4e391', endColorstr='#61c419',GradientType=0 ); /* IE6-9 */
 }
+
+.clear {
+	color: black;
+	-webkit-text-fill-color: white; /* Will override color (regardless of order) */
+	-webkit-text-stroke-width: 2px;
+	-webkit-text-stroke-color: black;
+}
+	
+.res_title {
+	font-family: Anton, sans-serif;
+	font-size: 15px;
+}

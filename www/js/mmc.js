@@ -18,6 +18,7 @@ var mmc = {
 
 						if (reg.test(value.content)) {
 							value.threat = mmc.dictionary[cat][entry]['threat'];
+							console.log('Matched: ' + value.content + ' in category ' + cat + ' on ' + mmc.dictionary[cat][entry]['word']);
 						}
 					}
 					
@@ -61,13 +62,13 @@ var mmc = {
 
 		if (resultLevel >= 2.5) {
 			// level 3
-			$('#results-picture').html('Virtual mouth, meet virtual soap.<br><img src="img/rage-classic.png"><br>We found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
+			$('#results-picture').html('<span class="res_title">Virtual mouth, meet virtual soap.</span><br><img src="img/rage-classic.png"><br>We found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
 		} else if ( (resultLevel >= 1.5) && (resultLevel < 2.5) ) {
 			// level 2
-			$('#results-picture').html('Things look pretty murky...<br><img src="img/determined-questioning-pondering.png"><br>We found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
+			$('#results-picture').html('<span class="res_title">Things look pretty murky...</span><br><img src="img/determined-questioning-pondering.png"><br>We found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
 		} else if ( (resultLevel > 0) && (resultLevel < 1.5) ) {
 			// level 1
-			$('#results-picture').html('Your virtual tongue is under control.<br><img src="img/neutral-concentrated-red-tongue.png"><br>We only found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
+			$('#results-picture').html('<span class="res_title">Your virtual tongue is under control.</span><br><img src="img/neutral-concentrated-red-tongue.png"><br>We only found ' + total + ' posts that could cause you trouble. ' + superOffensive + ' are outright offensive, ' + embarassing + ' are likely embarrassing, and ' + uncivil + ' are simply uncivil.');
 		} else {
 			// level 0
 			$('#results-picture').html('Wow, we didn\'t find a single thing that could get you into trouble. You\'re cautious and civil with what you say, which makes us wonder if you realize you\'re on the internet.');
@@ -163,7 +164,7 @@ User result level is determined by average threat level (the sum of the threat l
 						}
 					});
 
-					console.log(["Users posts", data]);
+					console.log("Users posts retrieved, running matching");
 					mmc.runDataMatch(data);
 				});
 			}, 2000);
