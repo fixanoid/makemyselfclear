@@ -119,6 +119,12 @@ var mmc = {
 			$('#page-extra').load('privacy.html');
 		});
 
+		$('#credits').click(function(e) {
+			e.preventDefault();
+			mmc.openPage('extra');
+			$('#page-extra').load('credits.html');
+		});
+
 		$('#twitter-go').click(function() {
 			mmc.initTwitter();
 		});
@@ -227,13 +233,44 @@ var mmc = {
 			}, 2000);
 		}
 	},
+	
+	initTwitterAuth: function() {
+		twttr.anywhere(function (T) {
+			var screenName;
+
+			if (T.isConnected()) {
+			  screenName = T.currentUser.data('screen_name');
+				$('#twitter-handle').val(screenName).attr("disabled", "disabled");
+				$('#twitter-logout').click(function() {twttr.anywhere.signOut(); window.location.reload();} );
+			} else {
+				$('#twitter-logo').hide();
+				$('#twitter-go').hide();
+				$('#twitter-handle').hide();
+				$('#twitter-logout').hide();
+
+				T('#twitter-login').connectButton({
+					authComplete: function(user) {
+						$('#twitter-login').hide();
+						$('#twitter-logo').show();
+						$('#twitter-go').show();
+						$('#twitter-handle').show();
+						$('#twitter-logout').show();
+						
+						$('#twitter-handle').val(user.data('screen_name')).attr("disabled", "disabled");
+						$('#twitter-logout').click(function() {twttr.anywhere.signOut(); window.location.reload();} );
+					}
+				});
+			};
+		});
+	},
 
 	init: function() {
 		// load initial page
 		mmc.openPage(1);
 		mmc.addObservers();
 		mmc.initFacebook();
-		
+		mmc.initTwitterAuth();
+
 		// load dictionary.
 		$.ajax({
 			url: 'dictionary/big-dictionary.xml',
