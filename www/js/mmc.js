@@ -2,35 +2,40 @@ var mmc = {
 	facebookAppID: '378127265561580',
 	dictionary: {},
 	hits: {},
+	endR: '[\\.,]?( )?',
 	
 	runDataMatch: function(data) {
 		$(data).each(function(index, value) {
+		console.log(value);
 			for (var cat in mmc.dictionary) {
 				if (!mmc.hits[cat]) {
 					mmc.hits[cat] = [];
 				}
 
 				if (mmc.dictionary[cat].regex.test(value.content)) {
-					//console.log('Matched: ' + value.content + ' in category ' + cat );
+					console.log('Matched: ' + value.content + ' in category ' + cat );
 
 					for (var entry in mmc.dictionary[cat]) {
 						if (!mmc.dictionary[cat][entry]['word']) continue;
 
-						var reg = new RegExp(' ' + mmc.dictionary[cat][entry]['word'] + ' ', 'ig');
+						var reg = new RegExp(' ' + mmc.dictionary[cat][entry]['word'] + mmc.endR, 'ig');
 
 						if (reg.test(value.content)) {
 							value.threat = mmc.dictionary[cat][entry]['threat'];
-							console.log('Matched: ' + value.content + ' in category ' + cat + ' on ' + mmc.dictionary[cat][entry]['word']);
+							mmc.hits[cat].push(value);
+							// console.log('Matched: ' + value.content + ' in category ' + cat + ' on ' + mmc.dictionary[cat][entry]['word']);
+
+							break;
 						}
 					}
-					
-					mmc.hits[cat].push(value);
 				}
 			}
-			
+
 			mmc.openPage(3);
 		});
 
+		console.log(mmc.hits);
+		
 		var overallThreat = 0, total = 0, superOffensive = 0, embarassing = 0, uncivil = 0,
 		 resultsAccordion = $("#results-accordion"), expandedIndex = 0;
 		for (var cat in mmc.hits) {
@@ -46,28 +51,17 @@ var mmc = {
 				} else if ( parseInt(mmc.hits[cat][i]['threat']) == 1 ) {
 					uncivil++;
 				}
-			/*
-				if (cat == 'foul language') {
-					overallThreat += 1;
-				} else if (cat == 'hate group') {
-					overallThreat += 2;
-				} else if (cat == 'hate speech') {
-					overallThreat += 3;
-				} else if (cat == 'health information') {
-					overallThreat += 2;
-				} else if (cat == 'sex') {
-					overallThreat += 1;
-				} else if (cat == 'drugs and alcohol') {
-					overallThreat += 1;
-				}
-			*/
+
+				content.html("<li>" + mmc.hits[cat][i]['content'] + "</li>");
 			}
+
 			if (!length) {
                 resultsAccordion.append("<div style='background-color:#00CD00'>We couldn't find any " + cat + ". In the clear!</div>");
                 content.html("<li>0</li>");
             } else {
                 expandedIndex++;
                 resultsAccordion.append("<div style='background-color:#FF0000'>We found [" + length + "] references to " + cat.toUpperCase() + " ></div>");
+				
             }
 
             resultsAccordion.append(content);
@@ -89,9 +83,9 @@ var mmc = {
 			// level 0
 			$('#results-picture').html('<span class="res_title">You\'re in the clear!</span><br><img src="img/happy-epic-win.png"><br>Wow, we didn\'t find a single thing that could get you into trouble. You\'re cautious and civil with what you say, which makes us wonder if you realize you\'re on the internet.');
 			
-			$('#results-accordion').html('Not that you need them, but you might want to check out our <link>additional privacy resources</link> for best practices, info about social network privacy policies, and other tools you might find interesting.');
+			// $('#results-accordion').html('Not that you need them, but you might want to check out our <link>additional privacy resources</link> for best practices, info about social network privacy policies, and other tools you might find interesting.');
 		}
-		console.log([total, overallThreat, overallThreat/total || 0]);
+		// console.log([total, overallThreat, overallThreat/total || 0]);
 	},
 
 	addObservers: function() {
@@ -169,6 +163,7 @@ var mmc = {
 			loadTwits(i);
 		}
 	},
+
 	initFacebook: function() {
 		if (window.location.hash.length == 0) { return; }
 
@@ -211,7 +206,7 @@ var mmc = {
         document.body.appendChild(script);
 
 		script.onload = function() {
-		setTimeout(function() {
+			setTimeout(function() {
 				FB.api({
 					method:'fql.query',
 					query: "SELECT post_id, actor_id, target_id, message FROM stream WHERE filter_key in (SELECT filter_key FROM stream_filter WHERE uid = me()) AND created_time > 1"
@@ -226,8 +221,7 @@ var mmc = {
 						}
 					});
 
-
-					console.log("Users posts retrieved, running matching. " + data.length);
+					// console.log("Users posts retrieved, running matching. " + data.length);
 					mmc.runDataMatch(data);
 				});
 			}, 2000);
@@ -287,7 +281,7 @@ var mmc = {
 					
 					mmc.dictionary[cat].push({"word": $(this).find('word').text(), "threat": $(this).find('threatlevel').text()});
 
-					mmc.dictionary[cat].regex += ' ' + $(this).find('word').text() + ' |';
+					mmc.dictionary[cat].regex += ' ' + $(this).find('word').text() + mmc.endR + '|';
 				});
 
 				for (var cat in mmc.dictionary) {
